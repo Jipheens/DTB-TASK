@@ -1,0 +1,9 @@
+version: '3.8'
+services:
+  build-and-push:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: jipheens/customers_service_backend:latest
+    platform: linux/amd64
+

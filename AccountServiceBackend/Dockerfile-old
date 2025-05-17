@@ -1,0 +1,30 @@
+# Stage 1: Build stage
+FROM openjdk:11 AS builder
+
+# Install Maven and other dependencies
+RUN apt update && apt install -y maven 
+
+WORKDIR /app
+
+# Copy only the pom.xml file and download the dependencies
+COPY pom.xml .
+COPY src/main/resources/application.uat.yaml application.uat.yaml
+RUN mvn dependency:go-offline -B
+
+# Copy the source code and build the application
+COPY src/ src/
+RUN mvn clean install -DskipTests
+
+# Stage 2: Final stage
+FROM openjdk:11-jre-slim
+
+WORKDIR /app
+
+# Copy the built JAR from the builder stage
+COPY --from=builder /app/target/suppliers_portal_backend.jar ./
+
+# Set JVM memory options
+ENV JAVA_OPTS="-Xmx200m -Xms200m"
+ENV SPRING_PROFILES_ACTIVE=uat
+
+CMD ["java", "-jar", "suppliers_portal_backend.jar"]

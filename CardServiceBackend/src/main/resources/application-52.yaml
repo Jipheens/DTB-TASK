@@ -1,0 +1,44 @@
+server:
+  port: 1905
+spring:
+  datasource:
+    url: jdbc:mysql://197.155.71.138:3312/kb_erp_suppliers_portal?useSSL=false
+    dbname:
+    username:
+    password:
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+    hibernate:
+      ddl-auto: update
+  domain:
+    clientside: localhost
+bezkoder:
+  app:
+    jwtCookieName: bezkoder
+    jwtExpirationMs: 600000 #10 minutes
+    jwtSecret: "/buCOEjS/+H7ZwekxyLKLdDeegHUGEytjxuivosdrzjRG4g4E+kA3uXO5lvGBVsl2NwqsgiGUUI5bjgY/6WG/VSIIG+22b1Rvdb59BY0YRod6Dnjnp0REsPn//hshs6ucnOVCBRp0lbVb1kP+EDOM7W7N72/+t+R1d8JQ4pjisoJZI4e0MV3PlZtzXKI0SY2EQUtI"
+
+myswagger:
+  openapi:
+    dev-url: http://localhost:1905
+    prod-url: http://197.155.71.138:1905
+
+enc:
+  key: VcbKey0123456789
+  initVector: VcbInitVector012
+
+users:
+  app:
+    client:
+      origin_url: http://localhost:4200/
+      origin_ip: http://127.0.0.1:4200/
+      origin_52_ip: http://197.155.71.138:9098/
+      origin_admin_ip: http://197.155.71.138:9097/
+      origin_portal_ip: http://197.155.71.138:9098/
+#EM
+API_GATWAY_URL: http://197.155.71.138:6200
+APP_LOGIN_URL_URL: http://197.155.71.138:9098
+SUPPLIER_MANAGEMENT_URL: http://197.155.71.138:9090/api/v1/suppliers/update/supplier-status
+AUDIT_TRAIL_REQUEST: http://197.155.71.138:6200/audit/log

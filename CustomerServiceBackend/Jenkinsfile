@@ -1,0 +1,91 @@
+pipeline {
+    agent any
+
+    environment {
+        EUREKA_PATH = "ERP_BackEnd/eureka-server"
+        DOCKER_CREDENTIALS_ID = '1ed87ab4-0f16-4c01-81eb-a8e43e0965c6'
+        SSH_CREDENTIAL_ID = '9087bd70-5e1e-4e7a-a229-634d37f2ebf2'
+        SSH_SERVER_IP = '197.155.71.138'
+        SSH_USERNAME = 'ubuntu' 
+    }
+
+    stages {
+        stage('Source_Code: Github_Repository') {
+            steps {
+                script {
+                    // Use Jenkins global SSH credentials for Git checkout
+                    checkout([$class: 'GitSCM', branches: [[name: 'main']], userRemoteConfigs: [[url: 'git@github.com:emtech2018/ERP_System.git', credentialsId: 'fd37618e-8398-41e8-8a1e-3a354b09e101']]])
+                }
+            }
+        }
+
+        stage('Authentication: Docker') {
+            steps {
+                script {
+                    // Log in to Docker using Jenkins global Docker credentials
+                    withCredentials([usernamePassword(credentialsId: DOCKER_CREDENTIALS_ID, usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                        sh "echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin"
+                    }
+                }
+            }
+        }
+        //BUILD STAGE
+        stage('Build_Docker_Image: Eureka microservice') {
+            steps {
+                script {
+                    dir("${EUREKA_PATH}") {
+                        echo "Building Docker image in ${EUREKA_PATH}:"
+                        sh 'docker-compose build'
+                    }
+                }
+            }
+        }
+        // TEST STAGE
+          stage('Image_Test: Image Test') {
+            steps {
+                script {
+                    sh 'pwd'
+                }
+            }
+        }
+        
+        // SCAN STAGE
+          stage('Image_Scanning: Vulnerabilities') {
+            steps {
+                script {
+                    sh 'pwd'
+                }
+            }
+        }
+        // PUSH STAGE
+
+        stage('Push_Docker_Image: Docker hub') {
+            steps {
+                script {
+                    dir("${EUREKA_PATH}") {
+                        echo "Pushing Docker image in ${EUREKA_PATH}:"
+                        sh 'docker-compose push'
+                    }
+                }
+            }
+        }
+            
+        stage('Deploy: Kubernetes cluster (UAT)') {
+            steps {
+                script {
+                    // Wrap the SSH steps with sshagent
+                    sshagent(credentials: [SSH_CREDENTIAL_ID]) { 
+                        // Change to the prod directory and run deploy script
+                        sh "ssh -o StrictHostKeyChecking=no ${SSH_USERNAME}@${SSH_SERVER_IP}"
+                        // Run the Docker command to start the container
+                        sh "docker stop erp_eureka_service"
+                        sh "docker rm erp_eureka_service"
+                        sh "docker run -d --name erp_eureka_service -p 8761:8761 --memory 400m coullence/erp_eureka_service"
+                    }
+                }
+            }
+        }
+    }
+}
+
+
