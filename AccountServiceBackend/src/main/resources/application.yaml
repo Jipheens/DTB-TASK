@@ -1,5 +1,5 @@
 server:
-  port: 1906
+  port: 4200
 
 spring:
   datasource:
@@ -30,7 +30,7 @@ bezkoder:
 
 myswagger:
   openapi:
-    dev-url: http://localhost:1906
+    dev-url: http://localhost:4200
     prod-url: http://10.0.1.144:1905
 
 enc:

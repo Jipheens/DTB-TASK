@@ -35,15 +35,15 @@ public class SwaggerConfig {
         Contact contact = new Contact();
         contact.setEmail("wahomejipheens@gmail.com");
         contact.setName("JIPHEENS");
-        contact.setUrl("https://www.emtechhouse.co.ke/");
+        contact.setUrl("https://www.sic-edgetechnologies.co.ke/");
 
         License mitLicense = new License().name("MIT License").url("https://choosealicense.com/licenses/mit/");
 
         Info info = new Info()
-                .title("Supplier Management APIs")
+                .title("Cards Management APIs")
                 .version("1.0")
                 .contact(contact)
-                .description("This API exposes endpoints to manage suppliers.").termsOfService("https://www.emtechhouse.co.ke/")
+                .description("This API exposes endpoints to manage Cards.").termsOfService("https://www.sic-edgetechnologies.co.ke/")
                 .license(mitLicense);
 
         return new OpenAPI().info(info).servers(List.of(devServer, prodServer));

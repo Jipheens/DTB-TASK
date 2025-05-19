@@ -1,5 +1,5 @@
 server:
-  port: 1907
+  port: 4300
 
 spring:
   datasource:
@@ -30,7 +30,7 @@ bezkoder:
 
 myswagger:
   openapi:
-    dev-url: http://localhost:1905
+    dev-url: http://localhost:4300
     prod-url: http://10.0.1.144:1905
 
 enc:
@@ -41,7 +41,7 @@ users:
   app:
     client:
       origin_url: http://localhost:4200/
-      origin_ip: http://127.0.0.1:4200/
+      origin_ip: http://localhost:4300/
       origin_52_ip: http://10.0.1.144:9098/
       origin_admin_ip: http://10.0.1.144:9097/
       origin_portal_ip: http://10.0.1.144:9098/
