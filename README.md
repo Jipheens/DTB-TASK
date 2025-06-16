@@ -4,7 +4,6 @@
 This project implements a simplified microservices-based banking platform using Spring Boot. It provides functionality for managing Customers,Accounts and Cards, with soft delete, audit trails, and sensitive data masking (PAN/CVV).
 
 
-
  Tech Stack
 
 - Java 17
