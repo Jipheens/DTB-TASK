@@ -2,8 +2,6 @@ Banking Microservices Platform
 
 This project implements a simplified microservices-based banking platform using Spring Boot. It provides functionality for managing Customers,Accounts and Cards, with soft delete, audit trails, and sensitive data masking (PAN/CVV).
 
-
-
  Tech Stack
 
 - Java 17
@@ -14,7 +12,6 @@ This project implements a simplified microservices-based banking platform using 
 - JUnit 5
 - Lombok
 - SpringDoc OpenAPI (Swagger)
-
 
 
  Microservices Overview
@@ -122,4 +119,5 @@ Each service contains:
 ##  Author
 
 Built by a Jipheens Wahome.
+
 
