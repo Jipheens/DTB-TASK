@@ -4,6 +4,7 @@ This project implements a simplified microservices-based banking platform using 
 
  Tech Stack
 
+
 - Java 17
 - Spring Boot 3
 - Spring Data JPA
@@ -71,7 +72,6 @@ Testing
 * To run tests:
 
 
-
 ## 📑 Swagger / OpenAPI
 
 * Swagger UI is available at:
@@ -119,5 +119,6 @@ Each service contains:
 ##  Author
 
 Built by a Jipheens Wahome.
+
 
 
